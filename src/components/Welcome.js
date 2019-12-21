@@ -33,17 +33,7 @@ const Welcome = () => {
           </a>
         </p>
         <p>
-          Forked from{' '}
-          <a
-            href="https://boredaf.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            bordedaf.app
-          </a>{' '}
-        </p>
-        <p>
-          <Button onClick={() => setModalOpen(true)}>Add an Activity</Button>
+          <Button onClick={() => setModalOpen(true)}>Ajouter une entreprise</Button>
         </p>
       </div>
       <Modal open={modalOpen} close={() => setModalOpen(false)} />

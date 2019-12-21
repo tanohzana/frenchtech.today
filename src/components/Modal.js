@@ -18,7 +18,7 @@ const Modal = ({ open, close }) => {
         process.env.NODE_ENV === 'development'
           ? 'https://frenchtech.netlify.com'
           : ''
-      }/.netlify/functions/airtable?startup=${startup}`
+      }/.netlify/functions/airtable?pepite=${startup}`
     )
 
     await request.json()
@@ -49,7 +49,7 @@ const Modal = ({ open, close }) => {
                 transform: `translate3d(0px, ${styles.y}px, 0px)`,
               }}
             >
-              <h1>Ajouter une belle startup</h1>
+              <h1>Ajouter une pépite</h1>
               {submitted && <h2>T'es le/la meilleur(e)</h2>}
               <form onSubmit={submitStartup}>
                 <Input

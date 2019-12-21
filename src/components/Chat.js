@@ -54,15 +54,6 @@ const List = styled.ul`
   margin: 0;
 `
 
-const TextWrapper = styled.div`
-  position: relative;
-  width: 100%;
-`
-
-const TextInput = styled.input`
-  width: 100%;
-`
-
 const Chat = ({ children, messages }) => {
   const ariaAttr = i =>
     i === messages.length - 1 ? { 'aria-live': 'polite' } : {}
@@ -96,10 +87,6 @@ const Chat = ({ children, messages }) => {
       </List>
 
       <ButtonsContainer>{children}</ButtonsContainer>
-
-      <TextWrapper>
-        <TextInput />
-      </TextWrapper>
     </Container>
   )
 }

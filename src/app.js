@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect, useState, useRef } from 'react'
-import { BoredContext } from './BoredContext'
+import { FrenchTechContext } from './FrenchTechContext'
 import Chat from './components/Chat'
 import { Button } from './components/Button'
 import Reward from 'react-rewards'
@@ -20,46 +20,77 @@ export default () => {
   const mobilePhone = useRef(null)
   const [done, setDone] = useState(false)
   const [loading, setLoading] = useState(false)
-  const { getRandom } = useContext(BoredContext)
+  const { getAlternatives, getSections, getStartupsBySection } = useContext(FrenchTechContext)
   const newTime = () => ({ time: format(new Date(), 'HH:mm') })
   const defaultMessages = [
     {
-      user: 'I am bored. Give me shit to do',
-      bot: getRandom(),
+      user: 'Je cherche une alternative dans la FrenchTech.',
+      bot: 'Dans quel secteur cherchez vous ?',
       ...newTime(),
     },
   ]
+  const sections = getSections()
   const [messages, setMessages] = useState(defaultMessages)
+  const [step, setStep] = useState('sections')
+  const [currentAnswers, setCurrentAnswers] = useState(sections)
+  const [currentText, setCurrentText] = useState()
+  const [currentSection, setCurrentSection] = useState()
 
-  const no = () => {
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      setMessages([
-        ...messages,
-        {
-          user: 'Non 👎',
-          bot: getRandom(),
-          ...newTime(),
-        },
-      ])
-      mobilePhone.current.scrollTop = mobilePhone.current.scrollHeight
-    }, 400)
+  const updateStep = () => {
+    if (step === 'sections') {
+      setStep('startups')
+    } else if (step === 'startups') {
+      setStep('alternatives')
+    } else if (step === 'alternatives') {
+      setStep('end')
+      setDone(true)
+    }
   }
 
-  const yes = () => {
-    // reward is undefined when the 'y' key is pressed.
-    // haven't been able to figure a way around this yet :(
-    reward && reward.rewardMe()
+  const updateCurrentAnswers = () => {
+    if (step === 'sections') {
+      const answers = getSections()
+      setCurrentAnswers(answers)
+    } else if (step === 'startups') {
+      const answers = getStartupsBySection(currentText)
+      setCurrentSection(currentText)
+      setCurrentAnswers(answers)
+    } else if (step === 'alternatives') {
+      const answers = getAlternatives(currentSection, currentText)
+      setCurrentAnswers(answers)
+    }
+  }
+
+  const getBotAnswer = () => {
+    switch(step) {
+      case 'sections':
+        return 'Vous cherchez une alternative à ... 🧐'
+      case 'startups':
+        return 'Voilà ce que j\'ai trouvé 😁'
+      case 'alternatives':
+        return 'Voilà toutes les infos 🕵️‍♀️'
+      default:
+        return ''
+    }
+  }
+
+  const answer = (text) => {
+    setLoading(true)
+    setCurrentText(text)
     setMessages([
       ...messages,
       {
-        user: 'Oui 👍',
-        bot: 'Ravi d\'avoir pu trouver chaussure à votre pied 🎉',
+        user: text,
+        bot: getBotAnswer(),
         ...newTime(),
       },
     ])
-    setDone(true)
+    updateStep()
+
+    setTimeout(() => {
+      setLoading(false)
+    }, 500)
+
     setTimeout(() => {
       mobilePhone.current.scrollTop = mobilePhone.current.scrollHeight
     }, 0)
@@ -69,11 +100,16 @@ export default () => {
 
   const restart = () => {
     setMessages(defaultMessages)
+    setStep('sections')
+    setCurrentAnswers(sections)
+    setCurrentText('')
+    setCurrentSection('')
     setDone(false)
   }
 
-  const yPressed = useKeyPress('y')
-  const nPressed = useKeyPress('n')
+  useEffect(() => {
+    updateCurrentAnswers()
+  }, [step, currentText])
 
   return (
     <Fragment>
@@ -84,57 +120,35 @@ export default () => {
           <MobileBg alt="background" src={mobileBg} />
           <Mobile ref={mobilePhone}>
             <Chat messages={messages}>
-              <Reward
-                type="confetti"
-                ref={ref => {
-                  reward = ref
-                }}
-              >
-                <Button onClick={() => (done ? confetti() : yes())}>
-                  {yPressed && !done && yes()}
-                  {done ? (
-                    'Génial'
-                  ) : (
-                    <span role="img" aria-label="Yes.">
-                      Oui 👍
-                    </span>
-                  )}
-                </Button>
-              </Reward>
-              {!done ? (
-                <Button onClick={() => no()}>
-                  {nPressed && !loading && no()}
-                  <span role="img" aria-label="No.">
-                    Non 👎
-                  </span>
-                </Button>
-              ) : (
-                <Button onClick={() => restart()}>Recommencer</Button>
-              )}
-              {loading ? <Loading /> : null}
+              {done ?
+                <>
+                  <Reward
+                    type="confetti"
+                    ref={ref => {
+                      reward = ref
+                    }}
+                  >
+                    <Button onClick={() => confetti()}>
+                      Génial
+                    </Button>
+                  </Reward>
+                  <Button onClick={() => restart()}>Recommencer</Button>
+                </> :
+                <>
+                  {!loading && currentAnswers.map((text) => (
+                    <Button key={text} onClick={() => answer(text)}>
+                      <span role="img" aria-label={text}>
+                        {text}
+                      </span>
+                    </Button>
+                  ))}
+                </>
+              }
+              {loading && !done ? <Loading /> : null}
             </Chat>
           </Mobile>
         </ChatContainer>
       </Card>
     </Fragment>
   )
-}
-
-const useKeyPress = inputKey => {
-  const [keyPressed, setKeyPressed] = useState(false)
-  const downHandle = ({ key }) => key === inputKey && setKeyPressed(true)
-  const upHandle = ({ key }) => key === inputKey && setKeyPressed(false)
-
-  useEffect(() => {
-    // add event listeners
-    window.addEventListener('keydown', downHandle)
-    window.addEventListener('keyup', upHandle)
-    // remove event listeners on cleanup
-    return () => {
-      window.removeEventListener('keydown', downHandle)
-      window.removeEventListener('keyup', upHandle)
-    }
-  }, [])
-
-  return keyPressed
 }

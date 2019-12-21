@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BoredState } from './BoredContext'
+import { FrenchTechState } from './FrenchTechContext'
 import { createGlobalStyle } from 'styled-components'
 import normalize from 'normalize.css'
 import reach from '@reach/dialog/styles.css'
@@ -56,10 +56,10 @@ const Global = createGlobalStyle`
 
 function App() {
   return (
-    <BoredState>
+    <FrenchTechState>
       <Main />
       <Global />
-    </BoredState>
+    </FrenchTechState>
   )
 }
 
