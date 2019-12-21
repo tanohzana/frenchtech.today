@@ -25,11 +25,21 @@ const Welcome = () => {
         <p>
           Le code sur{' '}
           <a
-            href="https://github.com/SaraVieira/bored.inc"
+            href="https://github.com/tanohzana/frenchtech.today"
             target="_blank"
             rel="noopener noreferrer"
           >
             Github
+          </a>
+        </p>
+        <p>
+          Forked from{' '}
+          <a
+            href="https://github.com/wabisabi-js/boredaf.app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            boredaf.app
           </a>
         </p>
         <p>

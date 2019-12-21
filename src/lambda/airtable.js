@@ -4,12 +4,12 @@ var Airtable = require('airtable')
 const AIRTABLE_KEY = process.env.AIRTABLE_KEY
 
 exports.handler = function(e, context, callback) {
-  var base = new Airtable({ apiKey: AIRTABLE_KEY }).base('tblWR6Blt3dJDBgzO')
-  const event = e.queryStringParameters.pepite
+  var base = new Airtable({ apiKey: AIRTABLE_KEY }).base('appfxwoO0TbpcB2Fm')
+  const name = e.queryStringParameters.pepite
 
-  console.log(event)
+  console.log(name)
 
-  base('pepites').create({ name: event }, function(err, record) {
+  base('pepites').create({ name }, function(err, record) {
     if (err) {
       callback(err)
       return

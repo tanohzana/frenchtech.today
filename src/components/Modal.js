@@ -49,7 +49,7 @@ const Modal = ({ open, close }) => {
                 transform: `translate3d(0px, ${styles.y}px, 0px)`,
               }}
             >
-              <h1>Ajouter une pépite</h1>
+              <h1>Ajoutes une pépite</h1>
               {submitted && <h2>T'es le/la meilleur(e)</h2>}
               <form onSubmit={submitStartup}>
                 <Input
