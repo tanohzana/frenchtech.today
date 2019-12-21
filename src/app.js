@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect, useState, useRef } from 'react'
 import { FrenchTechContext } from './FrenchTechContext'
 import Chat from './components/Chat'
-import { Button } from './components/Button'
+import { Button, ButtonChoicesContainer } from './components/Button'
 import Reward from 'react-rewards'
 import Loading from './components/Loading'
 import Welcome from './components/Welcome'
@@ -134,7 +134,7 @@ export default () => {
                   </Reward>
                   <Button onClick={() => restart()}>Recommencer</Button>
                 </> :
-                <>
+                <ButtonChoicesContainer>
                   {!loading && currentAnswers.map((text) => (
                     <Button key={text} onClick={() => answer(text)}>
                       <span role="img" aria-label={text}>
@@ -142,7 +142,7 @@ export default () => {
                       </span>
                     </Button>
                   ))}
-                </>
+                </ButtonChoicesContainer>
               }
               {loading && !done ? <Loading /> : null}
             </Chat>

@@ -50,7 +50,7 @@ const Modal = ({ open, close }) => {
               }}
             >
               <h1>Ajoutes une pépite</h1>
-              {submitted && <h2>T'es le/la meilleur(e)</h2>}
+              {submitted && <h2>T'es le/la meilleur(e) ! On l'ajoute ASAP</h2>}
               <form onSubmit={submitStartup}>
                 <Input
                   placeholder="Doctolib"

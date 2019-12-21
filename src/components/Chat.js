@@ -21,6 +21,7 @@ const Bubble = styled.div`
 `
 
 const ButtonsContainer = styled.div`
+  position: relative;
   display: flex;
   flex-grow: 1;
   justify-content: flex-end;

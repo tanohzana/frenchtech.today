@@ -21,3 +21,8 @@ export const Button = styled.button`
     box-shadow: 0 2px 6px 0 rgba(110, 110, 110, 0.5);
   }
 `
+export const ButtonChoicesContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+`
