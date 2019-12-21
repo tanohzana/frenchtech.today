@@ -6,24 +6,24 @@ import { Overlay, Input, SubmitButton, ModalContent } from './Elements'
 
 const Modal = ({ open, close }) => {
   const rewardRef = useRef(null)
-  const [activity, setActivity] = useState('')
+  const [startup, setStartup] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const submitActivity = async e => {
+  const submitStartup = async e => {
     e.preventDefault()
     setLoading(true)
     const request = await fetch(
       `${
         process.env.NODE_ENV === 'development'
-          ? 'https://bored-af.netlify.com'
+          ? 'https://frenchtech.netlify.com'
           : ''
-      }/.netlify/functions/airtable?activity=${activity}`
+      }/.netlify/functions/airtable?startup=${startup}`
     )
 
     await request.json()
     setSubmitted(true)
-    setActivity('')
+    setStartup('')
     setLoading(false)
     rewardRef.current.rewardMe()
   }
@@ -49,19 +49,19 @@ const Modal = ({ open, close }) => {
                 transform: `translate3d(0px, ${styles.y}px, 0px)`,
               }}
             >
-              <h1>Add an awesome activity</h1>
-              {submitted && <h2>You are the best</h2>}
-              <form onSubmit={submitActivity}>
+              <h1>Ajouter une belle startup</h1>
+              {submitted && <h2>T'es le/la meilleur(e)</h2>}
+              <form onSubmit={submitStartup}>
                 <Input
-                  placeholder="Go pet all the dogs"
+                  placeholder="Doctolib"
                   required
-                  value={activity}
-                  onChange={e => setActivity(e.target.value)}
+                  value={startup}
+                  onChange={e => setStartup(e.target.value)}
                 />
                 <Reward type="confetti" ref={rewardRef}>
                   <SubmitButton type="submit ">
                     {!loading ? (
-                      'Ship it 🚀'
+                      'Soumettre 🚀'
                     ) : (
                       <Loading style={{ margin: 0 }} />
                     )}

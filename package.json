@@ -1,7 +1,7 @@
 {
-  "name": "bored.inc",
+  "name": "frenchtech.today",
   "version": "1.0.0",
-  "description": "I will give things to do fam",
+  "description": "Une initiative francophone",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {

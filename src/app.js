@@ -38,7 +38,7 @@ export default () => {
       setMessages([
         ...messages,
         {
-          user: 'No 👎',
+          user: 'Non 👎',
           bot: getRandom(),
           ...newTime(),
         },
@@ -54,8 +54,8 @@ export default () => {
     setMessages([
       ...messages,
       {
-        user: 'Yes 👍',
-        bot: 'Go do the Thing 🎉',
+        user: 'Oui 👍',
+        bot: 'Ravi d\'avoir pu trouver chaussure à votre pied 🎉',
         ...newTime(),
       },
     ])
@@ -93,10 +93,10 @@ export default () => {
                 <Button onClick={() => (done ? confetti() : yes())}>
                   {yPressed && !done && yes()}
                   {done ? (
-                    'Amazing'
+                    'Génial'
                   ) : (
                     <span role="img" aria-label="Yes.">
-                      Yes 👍
+                      Oui 👍
                     </span>
                   )}
                 </Button>
@@ -105,11 +105,11 @@ export default () => {
                 <Button onClick={() => no()}>
                   {nPressed && !loading && no()}
                   <span role="img" aria-label="No.">
-                    No 👎
+                    Non 👎
                   </span>
                 </Button>
               ) : (
-                <Button onClick={() => restart()}>Restart</Button>
+                <Button onClick={() => restart()}>Recommencer</Button>
               )}
               {loading ? <Loading /> : null}
             </Chat>

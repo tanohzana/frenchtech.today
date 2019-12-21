@@ -7,31 +7,23 @@ const Welcome = () => {
   return (
     <WelcomeCard>
       <div>
-        <h1>Hello stranger!</h1>
-        <h2>So you think you bored!</h2>
-        <p>Our chatbot can tell you a cool thing to do. Just give it a try!</p>
+        <h1>Bonjour mon ami(e) !</h1>
+        <h2>Bienvenue sur FTT</h2>
+        <p>Notre bot connais de belles startups de la FrenchTech, pouvant servir d'alternatives aux géants US.</p>
       </div>
       <div>
         <p>
-          Made by{' '}
+          Créé par{' '}
           <a
-            href="https://twitter.com/miuki_miu"
+            href="https://twitter.com/florian_adonis"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Elizabet Oliveira
-          </a>{' '}
-          &{' '}
-          <a
-            href="https://twitter.com/NikkitaFTW"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Sara Vieira
+            Florian Adonis
           </a>{' '}
         </p>
         <p>
-          Code on{' '}
+          Le code sur{' '}
           <a
             href="https://github.com/SaraVieira/bored.inc"
             target="_blank"
@@ -41,22 +33,14 @@ const Welcome = () => {
           </a>
         </p>
         <p>
-          Use the{' '}
+          Forked from{' '}
           <a
-            href="https://t.me/Bored_AF_Bot"
+            href="https://boredaf.app/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Telegram Bot (by{' '}
-            <a
-              href="https://twitter.com/uur_oruc"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Uğur Oruç
-            </a>
-            )
-          </a>
+            bordedaf.app
+          </a>{' '}
         </p>
         <p>
           <Button onClick={() => setModalOpen(true)}>Add an Activity</Button>

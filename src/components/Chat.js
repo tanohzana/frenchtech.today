@@ -3,6 +3,11 @@ import styled from 'styled-components'
 import BotSVG from './Bot'
 import { SrOnly } from './Elements'
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
 const Bubble = styled.div`
   min-height: 20px;
   max-width: 200px;
@@ -17,7 +22,7 @@ const Bubble = styled.div`
 
 const ButtonsContainer = styled.div`
   display: flex;
-  flex-flow: wrap;
+  flex-grow: 1;
   justify-content: flex-end;
 `
 
@@ -49,12 +54,21 @@ const List = styled.ul`
   margin: 0;
 `
 
+const TextWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`
+
+const TextInput = styled.input`
+  width: 100%;
+`
+
 const Chat = ({ children, messages }) => {
   const ariaAttr = i =>
     i === messages.length - 1 ? { 'aria-live': 'polite' } : {}
 
   return (
-    <Fragment>
+    <Container>
       <List aria-label="Conversation messages">
         {messages.map(({ user, bot, time }, i) => (
           <Fragment key={i}>
@@ -82,7 +96,11 @@ const Chat = ({ children, messages }) => {
       </List>
 
       <ButtonsContainer>{children}</ButtonsContainer>
-    </Fragment>
+
+      <TextWrapper>
+        <TextInput />
+      </TextWrapper>
+    </Container>
   )
 }
 
