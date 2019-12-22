@@ -20,7 +20,7 @@ export default () => {
   const mobilePhone = useRef(null)
   const [done, setDone] = useState(false)
   const [loading, setLoading] = useState(false)
-  const { getAlternatives, getSections, getStartupsBySection } = useContext(FrenchTechContext)
+  const { getAlternatives, getInfo, getSections, getStartupsBySection } = useContext(FrenchTechContext)
   const newTime = () => ({ time: format(new Date(), 'HH:mm') })
   const defaultMessages = [
     {
@@ -61,14 +61,15 @@ export default () => {
     }
   }
 
-  const getBotAnswer = () => {
+  const getBotAnswer = (text) => {
     switch(step) {
       case 'sections':
         return 'Vous cherchez une alternative à ... 🧐'
       case 'startups':
         return 'Voilà ce que j\'ai trouvé 😁'
       case 'alternatives':
-        return 'Voilà toutes les infos 🕵️‍♀️'
+        const info = getInfo(text)
+        return `Voilà toutes les infos 🕵️‍♀️ Créée en ${info.createdAt}, on peut y accéder ici : ${info.link}`
       default:
         return ''
     }
@@ -81,7 +82,7 @@ export default () => {
       ...messages,
       {
         user: text,
-        bot: getBotAnswer(),
+        bot: getBotAnswer(text),
         ...newTime(),
       },
     ])
